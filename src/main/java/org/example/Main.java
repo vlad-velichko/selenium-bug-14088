@@ -13,7 +13,8 @@ import static java.util.Collections.singletonList;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File(System.getenv("LOCALAPPDATA") + "/Microsoft/WindowsApps/ms-teams.exe");
+        String teamsPath = System.getenv("LOCALAPPDATA") + "/Microsoft/WindowsApps/ms-teams.exe";
+        File file = new File(teamsPath);
         System.out.println("file.exists() = " + file.exists());
         System.out.println("Files.exists(...) = " + Files.exists(file.toPath(), NOFOLLOW_LINKS));
         new SelenideDriver(new SelenideConfig()
@@ -21,7 +22,7 @@ public class Main {
                 .browserCapabilities(new EdgeOptions()
                         .addArguments("--remote-debugging-port=1111")
                         .setExperimentalOption("windowTypes", singletonList("webview")))
-                .browserBinary(System.getenv("LOCALAPPDATA") + "/Microsoft/WindowsApps/ms-teams.exe")
+                .browserBinary(teamsPath)
                 .browserVersion("125")
                 .browserSize(null)).open();
     }
